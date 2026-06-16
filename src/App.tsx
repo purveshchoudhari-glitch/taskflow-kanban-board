@@ -1,9 +1,13 @@
-import { useRoutes } from "react-router";
-import routes from "./routes";
+import { useState } from "react";
+import Login from "./Login";
+import Home from "./pages/Home"; // THIS is your Kanban
 
-function App() {
-	const element = useRoutes(routes);
-	return <>{element}</>;
+export default function App() {
+  const [user, setUser] = useState(null);
+
+  if (!user) {
+    return <Login onLogin={() => setUser({})} />;
+  }
+
+  return <Home />;
 }
-
-export default App;
