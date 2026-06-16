@@ -2,16 +2,21 @@ import { RouteObject } from "react-router";
 import Layout from "../layout";
 import Boards from "../pages/Boards";
 import Analytics from "../Analytics";
-import Login from "../Login"; // ADD THIS
+import Login from "../Login";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const routes: RouteObject[] = [
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",

@@ -9,29 +9,40 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const signIn = async () => {
-    if (!email || !password) return alert("Fill all fields");
+    if (!email || !password) {
+      return alert("Fill all fields");
+    }
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) return alert(error.message);
+    if (error) {
+      return alert(error.message);
+    }
 
-    if (data.session) navigate("/Boards");
+    if (data.session) {
+      localStorage.setItem("loggedIn", "true");
+      navigate("/boards");
+    }
   };
 
   const signUp = async () => {
-    if (!email || !password) return alert("Fill all fields");
+    if (!email || !password) {
+      return alert("Fill all fields");
+    }
 
     const { error } = await supabase.auth.signUp({
       email,
       password,
     });
 
-    if (error) return alert(error.message);
+    if (error) {
+      return alert(error.message);
+    }
 
-    alert("Account created. Now login.");
+    alert("Account created successfully. Now login.");
   };
 
   return (
@@ -58,6 +69,7 @@ export default function Login() {
 
         <input
           style={inputStyle}
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -83,7 +95,7 @@ export default function Login() {
   );
 }
 
-const inputStyle = {
+const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px",
   marginBottom: "10px",
@@ -91,9 +103,10 @@ const inputStyle = {
   border: "1px solid #333",
   background: "#1e1e1e",
   color: "white",
+  boxSizing: "border-box",
 };
 
-const btnPrimary = {
+const btnPrimary: React.CSSProperties = {
   width: "100%",
   padding: "12px",
   marginTop: "10px",
@@ -104,7 +117,7 @@ const btnPrimary = {
   cursor: "pointer",
 };
 
-const btnSecondary = {
+const btnSecondary: React.CSSProperties = {
   width: "100%",
   padding: "12px",
   marginTop: "10px",
